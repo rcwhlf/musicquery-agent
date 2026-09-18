@@ -1,0 +1,14 @@
+# ===== 机密配置：含 API Key 和数据库密码，严禁提交/上传 =====
+.env
+
+# ===== Python 运行产物 =====
+__pycache__/
+*.pyc
+
+# ===== PPT 渲染中间产物（生成脚本 make_ppt.js 和最终 pptx 保留入库） =====
+pptx_build/*.pdf
+pptx_build/*.png
+
+# ===== 系统文件 =====
+Thumbs.db
+Desktop.ini

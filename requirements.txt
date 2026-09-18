@@ -1,0 +1,14 @@
+# ---------- 数据库 ----------
+PyMySQL>=1.1.0          # MySQL 驱动
+cryptography>=42.0.0    # MySQL 8 默认认证插件 caching_sha2_password 需要
+
+# ---------- 网页界面 ----------
+streamlit>=1.36.0
+pandas>=2.0.0           # 查询结果表格展示
+
+# ---------- 大模型调用 ----------
+openai>=1.35.0          # 使用 OpenAI 兼容接口，可直连智谱 GLM / DeepSeek / OpenAI / Ollama
+
+# ---------- 配置与数据生成 ----------
+python-dotenv>=1.0.1    # 读取 .env 配置文件
+Faker>=25.0.0           # 生成测试数据
