@@ -40,6 +40,7 @@ s.background = { color: BG_DARK };
   s.addShape(p.shapes.OVAL, { x, y, w: d, h: d, line: { color: c, width: wd } });
 });
 s.addShape(p.shapes.OVAL, { x: 10.19, y: 3.54, w: 0.42, h: 0.42, fill: { color: ACCENT } });
+s.addImage({ path: "E:/musicquery-agent/logo/logo-icon-512.png", x: 9.525, y: 2.875, w: 1.75, h: 1.75 });
 s.addText("数据库系统课程 · 项目答辩", { x: 0.7, y: 1.85, w: 6.6, h: 0.4, fontSize: 14, bold: true, color: ACCENT, fontFace: F, charSpacing: 2, margin: 0 });
 s.addText("MusicQuery Agent", { x: 0.7, y: 2.3, w: 7.0, h: 1.05, fontSize: 52, bold: true, color: "FFFFFF", fontFace: F, margin: 0 });
 s.addText("基于自然语言交互的音乐作品库\n智能查询系统", { x: 0.7, y: 3.6, w: 6.6, h: 1.15, fontSize: 21, color: D_MUTED, fontFace: F, lineSpacingMultiple: 1.25, margin: 0 });
@@ -76,7 +77,7 @@ arrow(s, 11.01, 3.7, 11.2, 3.7);
 s.addShape(p.shapes.RECTANGLE, { x: 0, y: 5.35, w: W, h: 1.15, fill: { color: TINT } });
 s.addText([
   { text: "技术栈　", options: { bold: true, color: PRIMARY_DK } },
-  { text: "Python 3.10+ · MySQL 8.4 · PyMySQL · Streamlit · 智谱 GLM-5.3-Flash", options: { color: TEXT } },
+  { text: "Python 3.10+ · MySQL 8.4 · PyMySQL · Streamlit · 智谱 GLM-4-Flash（免费档，OpenAI 兼容）", options: { color: TEXT } },
 ], { x: 0.75, y: 5.35, w: 11.9, h: 1.15, fontSize: 14.5, fontFace: F, valign: "middle", margin: 0 });
 badge(s, 2);
 s.addNotes("系统是一条完整闭环：中文提问先经过意图判断这道守门员，无关问题直接礼貌拒绝；相关问题由大模型依据真实表结构生成 SQL，经三道安全防线校验后执行，执行失败还能把报错回传给大模型自动修正；最后把查询结果翻译成 50 字以内的自然语言回答。技术栈全部是课程内学过的 MySQL，加上 Python 生态的 Streamlit 网页界面。");
@@ -172,7 +173,7 @@ s.addText([
   { text: "，Using index（覆盖索引，免回表）", options: { color: TEXT, breakLine: true } },
   { text: "play_time　　→ type=range，命中 ", options: { color: TEXT } },
   { text: "idx_play_time", options: { bold: true, color: PRIMARY_DK } },
-  { text: "，扫描行数 240", options: { color: TEXT } },
+  { text: "，扫描行数 3", options: { color: TEXT } },
 ], { x: 0.75, y: 5.42, w: 11.9, h: 1.4, fontSize: 13.5, fontFace: F, lineSpacingMultiple: 1.4, margin: 0 });
 s.addText("数据来源：music_query 库 EXPLAIN 实测", { x: 0.75, y: 6.55, w: 7.0, h: 0.3, fontSize: 12, color: MUTED, fontFace: F, margin: 0 });
 badge(s, 5);
@@ -246,7 +247,7 @@ s.addShape(p.shapes.ROUNDED_RECTANGLE, { x: 0.9, y: 2.1, w: 4.25, h: 0.44, rectR
 s.addText("请输入你的问题", { x: 1.05, y: 2.1, w: 3.5, h: 0.44, fontSize: 12, color: MUTED, fontFace: F, valign: "middle", margin: 0 });
 s.addShape(p.shapes.ROUNDED_RECTANGLE, { x: 5.3, y: 2.1, w: 0.75, h: 0.44, rectRadius: 0.07, fill: { color: ACCENT } });
 s.addText("查询", { x: 5.3, y: 2.1, w: 0.75, h: 0.44, fontSize: 12.5, bold: true, color: "FFFFFF", fontFace: F, align: "center", valign: "middle", margin: 0 });
-const mock8 = [["生成的 SQL", "SELECT s.title, COUNT(*) … LIMIT 5"], ["查询结果（表格）", "共 5 条记录 · SQL 执行 12 ms"], ["自然语言回答", "《一个人的烟火》以 194 次播放居首……"]];
+const mock8 = [["生成的 SQL", "SELECT s.title, COUNT(*) … LIMIT 5"], ["查询结果（表格）", "共 5 条记录 · SQL 执行 12 ms"], ["自然语言回答", "《Euphoria》以 132 次播放居首……"]];
 mock8.forEach(([t, d], i) => {
   const y = 2.78 + i * 1.02;
   s.addShape(p.shapes.ROUNDED_RECTANGLE, { x: 0.9, y, w: 4.55, h: 0.85, rectRadius: 0.06, fill: { color: i === 2 ? TINT : BG }, line: { color: LINE, width: 1.25 } });
@@ -258,11 +259,11 @@ mock8.forEach(([t, d], i) => {
 s.addShape(p.shapes.LINE, { x: 6.15, y: 2.1, w: 0, h: 4.3, line: { color: LINE, width: 1 } });
 s.addText("耗时\n状态\n历史\n记录", { x: 6.2, y: 2.6, w: 0.85, h: 3.4, fontSize: 12.5, color: MUTED, fontFace: F, align: "center", lineSpacingMultiple: 1.7, margin: 0 });
 const demo8 = [
-  ["“播放量最高的前 5 首歌？”", "三表 JOIN + ORDER BY + LIMIT"],
-  ["“一共有多少首流行歌曲？”", "COUNT 聚合查询"],
-  ["“今天天气怎么样？”", "意图守门员：与音乐数据库无关"],
-  ["“删除所有播放记录”", "黑名单拦截，日志 is_success = 0"],
-  ["侧边栏", "本次耗时、成功状态、历史可回溯"],
+  ["筛选「摇滚」+ 播放量最高前 5", "流派筛选写入 SQL，JOIN 排序"],
+  ["周杰伦的歌", "光杆歌手名默认查其歌曲"],
+  ["今天天气怎么样？", "意图守门员：与音乐数据库无关"],
+  ["删除所有播放记录", "黑名单拦截，日志 is_success = 0"],
+  ["侧边栏", "耗时 / 状态 / 历史删除与清空"],
 ];
 demo8.forEach(([q, r], i) => {
   s.addText([
@@ -272,14 +273,14 @@ demo8.forEach(([q, r], i) => {
 });
 s.addText("兜底预案：手机热点保障外网；另备一组成功运行截图", { x: 7.55, y: 6.25, w: 5.15, h: 0.35, fontSize: 12, color: MUTED, fontFace: F, margin: 0 });
 badge(s, 8);
-s.addNotes("演示按由浅入深来：先来一个多表 JOIN 的播放量排名，再来一个 COUNT 聚合；然后演示两个特殊场景——问天气，会被意图判断礼貌拒绝；要求删除播放记录，会被黑名单拦截，并且能在侧边栏历史里看到这条 is_success 为 0 的记录。左边是界面布局：下方三块分别展示生成的 SQL、结果表格和自然语言回答，右侧是运行状态和历史。为了防止教室网络问题，我准备了手机热点和一组成功截图做兜底。");
+s.addNotes("演示按由浅入深来：先演示流派筛选——选摇滚再问播放量前五，筛选条件直接写进 SQL；再只输入周杰伦三个字，光杆歌手名也能默认查出他的歌；然后演示两个特殊场景——问天气，会被意图判断礼貌拒绝；要求删除播放记录，会被黑名单拦截，并且能在侧边栏历史里看到这条 is_success 为 0 的记录，历史还支持单条删除与清空。左边是界面布局：下方三块分别展示生成的 SQL、结果表格和自然语言回答，右侧是运行状态和历史。为了防止教室网络问题，我准备了手机热点和一组成功截图做兜底。");
 
 // ================= S9 长尾分布 =================
 s = p.addSlide(); s.background = { color: BG };
 kicker(s, "08 · 数据设计"); title(s, "长尾分布：让“播放量排名”有区分度");
 s.addChart(p.charts.BAR, [
-  { name: "均匀随机分布", labels: ["第 1 名", "第 2 名", "第 3 名", "第 4 名", "第 5 名"], values: [20, 19, 19, 19, 19] },
-  { name: "对数正态热度分布", labels: ["第 1 名", "第 2 名", "第 3 名", "第 4 名", "第 5 名"], values: [194, 160, 130, 112, 106] },
+  { name: "均匀随机分布（示意）", labels: ["第 1 名", "第 2 名", "第 3 名", "第 4 名", "第 5 名"], values: [20, 19, 19, 19, 19] },
+  { name: "对数正态热度分布（真实曲库实测）", labels: ["第 1 名", "第 2 名", "第 3 名", "第 4 名", "第 5 名"], values: [132, 101, 100, 83, 81] },
 ], {
   x: 0.6, y: 1.55, w: 7.2, h: 4.75, barDir: "col", barGapWidthPct: 60,
   chartColors: ["C9C2E8", "E8A33D"],
@@ -293,8 +294,8 @@ s.addChart(p.charts.BAR, [
 });
 const pts9 = [
   ["问题", "均匀随机：播放量挤在均值 ±5，前五名全是并列，排名没有信息量"],
-  ["方案", "对数正态热度：头部歌曲 194 次、长尾歌曲个位数，贴近真实产品"],
-  ["约束", "数据量保持 5000 条（任务书要求）——只改分布，不改数量"],
+  ["方案", "对数正态热度：头部《Euphoria》132 次、长尾歌曲个位数，贴近真实产品"],
+  ["数据", "曲库为真实公开数据（50 歌手/100 专辑/500 曲目）；播放行为按长尾规律仿真"],
 ];
 pts9.forEach(([t, d], i) => {
   s.addText([
@@ -304,7 +305,7 @@ pts9.forEach(([t, d], i) => {
 });
 s.addText("数据来源：music_query 库实测查询（data/import_data.py 生成）", { x: 0.6, y: 6.85, w: 7.2, h: 0.3, fontSize: 12, color: MUTED, fontFace: F, margin: 0 });
 badge(s, 9);
-s.addNotes("这页讲数据设计的一个亮点。最初的测试数据是完全均匀随机生成的，五百首歌分五千次播放，每首平均十次，前五名全都挤在二十次左右并列——排名本身没有信息量。真实音乐产品的播放量是长尾的：少数爆款占大头，大量歌曲只有个位数播放。所以我改用对数正态分布模拟热度，头部歌曲将近两百次，长尾歌曲个位数。注意数据量仍然是任务书要求的 5000 条，我们改的只是分布，不是数量。");
+s.addNotes("这页讲数据设计的一个亮点。最初的测试数据是完全均匀随机生成的，五百首歌分五千次播放，每首平均十次，前五名全都挤在二十次左右并列——排名本身没有信息量。真实音乐产品的播放量是长尾的：少数爆款占大头，大量歌曲只有个位数播放。所以我们改用对数正态分布模拟热度，现在曲库换成了真实公开数据，头部是 BTS 的《Euphoria》132 次，长尾歌曲个位数。播放行为属于隐私数据无法获得真实日志，按真实统计规律仿真——这一点照实说明反而显得专业。数据量仍是任务书要求的 5000 条。");
 
 // ================= S10 总结（深色收尾） =================
 s = p.addSlide(); s.background = { color: BG_DARK };

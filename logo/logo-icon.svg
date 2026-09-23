@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <!-- MusicQuery Agent logo：黑胶唱片 + 放大镜 + 音符 -->
+  <!-- 唱片盘体 -->
+  <circle cx="250" cy="262" r="205" fill="#241F35"/>
+  <circle cx="250" cy="262" r="205" fill="none" stroke="#5B4AA8" stroke-width="4" opacity="0.55"/>
+  <!-- 唱片纹路（同心圆沟槽） -->
+  <circle cx="250" cy="262" r="172" fill="none" stroke="#5B4AA8" stroke-width="3.5" opacity="0.42"/>
+  <circle cx="250" cy="262" r="142" fill="none" stroke="#5B4AA8" stroke-width="3" opacity="0.36"/>
+  <circle cx="250" cy="262" r="112" fill="none" stroke="#5B4AA8" stroke-width="3" opacity="0.3"/>
+  <circle cx="250" cy="262" r="88" fill="none" stroke="#5B4AA8" stroke-width="2.5" opacity="0.24"/>
+  <!-- 高光弧 -->
+  <path d="M 105 148 A 175 175 0 0 1 210 92" fill="none" stroke="#8B7BD8" stroke-width="7" stroke-linecap="round" opacity="0.5"/>
+  <!-- 唱片中心标（琥珀色） -->
+  <circle cx="250" cy="262" r="60" fill="#E8A33D"/>
+  <circle cx="250" cy="262" r="60" fill="none" stroke="#C9821F" stroke-width="3"/>
+  <circle cx="250" cy="262" r="9" fill="#241F35"/>
+  <!-- 放大镜镜片 -->
+  <circle cx="356" cy="168" r="92" fill="#FFFFFF" stroke="#241F35" stroke-width="12"/>
+  <!-- 镜片内音符（八分双音符） -->
+  <g fill="#5B4AA8">
+    <ellipse cx="330" cy="197" rx="14" ry="10" transform="rotate(-14 330 197)"/>
+    <ellipse cx="372" cy="189" rx="14" ry="10" transform="rotate(-14 372 189)"/>
+    <rect x="340" y="148" width="7" height="50"/>
+    <rect x="382" y="140" width="7" height="50"/>
+    <polygon points="340,148 389,139 389,157 340,166"/>
+  </g>
+  <!-- 放大镜手柄（琥珀色） -->
+  <line x1="416" y1="228" x2="474" y2="286" stroke="#E8A33D" stroke-width="24" stroke-linecap="round"/>
+</svg>

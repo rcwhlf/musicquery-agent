@@ -35,3 +35,25 @@ def get_recent_logs(limit: int = 10) -> list[dict]:
             return list(cursor.fetchall())
     finally:
         conn.close()
+
+
+def delete_log(log_id: int) -> None:
+    """删除指定的一条查询日志。"""
+    conn = get_connection()
+    try:
+        with conn.cursor() as cursor:
+            cursor.execute("DELETE FROM query_logs WHERE log_id = %s", (log_id,))
+        conn.commit()
+    finally:
+        conn.close()
+
+
+def clear_logs() -> None:
+    """清空全部查询日志。"""
+    conn = get_connection()
+    try:
+        with conn.cursor() as cursor:
+            cursor.execute("TRUNCATE TABLE query_logs")
+        conn.commit()
+    finally:
+        conn.close()

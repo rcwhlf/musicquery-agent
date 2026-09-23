@@ -25,3 +25,14 @@ def test_connection() -> bool:
         return True
     except Exception:
         return False
+
+
+def get_genres() -> list[str]:
+    """获取歌曲表中的全部流派取值（供界面筛选下拉框与提示词使用）。"""
+    conn = get_connection()
+    try:
+        with conn.cursor() as cursor:
+            cursor.execute("SELECT DISTINCT genre FROM songs WHERE genre IS NOT NULL ORDER BY genre")
+            return [row["genre"] for row in cursor.fetchall()]
+    finally:
+        conn.close()

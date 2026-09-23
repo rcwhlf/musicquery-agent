@@ -9,6 +9,7 @@ import re
 from openai import OpenAI
 
 from config import LLM_API_KEY, LLM_BASE_URL, LLM_MODEL
+from db.connection import get_genres
 from agent.prompts import (
     INTENT_PROMPT,
     SQL_GENERATE_PROMPT,
@@ -72,7 +73,16 @@ def _extract_sql(text: str) -> str:
 
 def generate_sql(question: str) -> str:
     """Step 2：根据用户问题生成一条 SELECT 语句。"""
-    prompt = render(SQL_GENERATE_PROMPT, question=question, schema=get_schema_text())
+    try:
+        genres = "、".join(get_genres())
+    except Exception:
+        genres = "（数据库暂时不可用，忽略本条规则）"
+    prompt = render(
+        SQL_GENERATE_PROMPT,
+        question=question,
+        schema=get_schema_text(),
+        genres=genres,
+    )
     return _extract_sql(chat_with_llm(prompt))
 
 
