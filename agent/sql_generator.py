@@ -47,8 +47,36 @@ def chat_with_llm(prompt: str, temperature: float = 0.0) -> str:
     return text
 
 
+# 音乐领域关键词：命中即放行，不消耗大模型调用。
+# 免费小模型（glm-4-flash）在"一共有多少首歌？""流行歌曲有多少首？"这类
+# 没有点名实体的泛化问句上会误判为无关，用确定性快速通道兜住这些高频提问。
+_MUSIC_WORDS = (
+    "歌", "唱", "专辑", "唱片", "单曲", "乐队", "音乐",
+    "流派", "风格", "播放", "收听", "时长", "发行", "出道",
+    "粉丝", "排行", "榜单", "热度",
+    "用户", "城市", "注册", "设备",
+)
+
+
+def _looks_music_related(question: str) -> bool:
+    """确定性判断：命中音乐领域词或流派取值，直接认定为相关。"""
+    text = question.lower()
+    if any(word in text for word in _MUSIC_WORDS):
+        return True
+    try:
+        # 流派合法取值（如"流行""摇滚""民谣"）同样是强相关信号
+        return any(genre.lower() in text for genre in get_genres())
+    except Exception:
+        return False
+
+
 def check_intent(question: str) -> bool:
-    """Step 1：判断用户问题是否与音乐数据库相关。"""
+    """Step 1：判断用户问题是否与音乐数据库相关。
+
+    先用关键词快速通道兜底（不依赖大模型），未命中再交给大模型判断。
+    """
+    if _looks_music_related(question):
+        return True
     try:
         answer = chat_with_llm(render(INTENT_PROMPT, question=question))
         return "YES" in answer.upper()
