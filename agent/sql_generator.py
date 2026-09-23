@@ -2,7 +2,7 @@
 """Step 1 意图判断 + Step 2 SQL 生成 + Step 3 失败修正。
 
 统一通过 OpenAI 兼容接口调用大模型，
-默认智谱 GLM（glm-5.3-flash），也可在 .env 中切换 DeepSeek / OpenAI / Ollama 等。
+默认智谱 GLM（glm-4-flash，免费档小模型），也可在 .env 中切换 DeepSeek / OpenAI / Ollama 等。
 """
 import re
 
@@ -35,8 +35,9 @@ def chat_with_llm(prompt: str, temperature: float = 0.0) -> str:
         model=LLM_MODEL,
         messages=[{"role": "user", "content": prompt}],
         temperature=temperature,
-        # glm-5.3-flash 是推理模型，回答前会先输出思考内容，
-        # 给足余量防止思考占满额度导致正式回答被截断为空
+        # 推理型模型（如 glm-5.3-flash）回答前会先输出思考内容，
+        # 给足余量防止思考占满额度导致正式回答被截断为空。
+        # 默认的 glm-4-flash 不是推理模型，此处属防御性设置，换模型后依然适用。
         max_tokens=4096,
     )
     message = response.choices[0].message

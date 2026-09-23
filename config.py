@@ -20,6 +20,8 @@ DB_CONFIG = {
 }
 
 # ---------- 大模型配置（OpenAI 兼容接口，默认智谱 GLM） ----------
+# 默认 glm-4-flash：免费档小模型，能力较弱但调用成本为零。
+# 需要更高准确率时在 .env 中改为 glm-5.3-flash 等更强模型即可。
 LLM_API_KEY = os.getenv("LLM_API_KEY", "")
 LLM_BASE_URL = os.getenv("LLM_BASE_URL", "https://open.bigmodel.cn/api/paas/v4")
-LLM_MODEL = os.getenv("LLM_MODEL", "glm-5.3-flash")
+LLM_MODEL = os.getenv("LLM_MODEL", "glm-4-flash")

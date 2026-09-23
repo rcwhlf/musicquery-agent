@@ -30,7 +30,7 @@ Step 4 结果解释  ──► 把查询结果翻译成 50 字以内的自然语
 - MySQL 8.0
 - PyMySQL（数据库连接）
 - Streamlit（网页界面）
-- 智谱 GLM 大模型（`glm-5.3-flash`，OpenAI 兼容接口，可在 `.env` 中切换 DeepSeek / OpenAI / Ollama 等）
+- 智谱 GLM 大模型（默认 `glm-4-flash`，**免费档小模型**，OpenAI 兼容接口，可在 `.env` 中切换 DeepSeek / OpenAI / Ollama 等）
 
 ## 项目结构
 
@@ -112,11 +112,19 @@ copy .env.example .env    # Windows
 DB_PASSWORD=你的MySQL密码
 LLM_API_KEY=你的智谱APIKey
 LLM_BASE_URL=https://open.bigmodel.cn/api/paas/v4
-LLM_MODEL=glm-5.3-flash
+LLM_MODEL=glm-4-flash
 ```
 
 > 智谱 API Key 在 <https://open.bigmodel.cn> 注册后获取。
 > 想换其他大模型？改 `LLM_BASE_URL` / `LLM_MODEL` 即可，见 `.env.example` 内注释。
+
+> **关于模型选择**：本项目默认使用智谱 `glm-4-flash`，这是**免费档的小模型，能力较弱**。
+> 选它的理由是调用成本为零，适合课程项目与小微场景；代价是它会把
+> "一共有多少首流行歌曲？""有多少首歌？"这类**没有点名实体的泛化问句**误判为无关
+> （同一批问题仅语序不同，判定就可能相反）。
+> 因此意图判断没有单纯依赖模型，而是在 `agent/sql_generator.py` 中额外加了一条
+> **确定性关键词快速通道**：命中音乐领域词或库中流派取值即直接放行，不受模型波动影响。
+> 若追求更高准确率，改用 `glm-5.3-flash` 等更强模型即可，无需改动任何代码。
 
 ### 4. 导入测试数据
 
