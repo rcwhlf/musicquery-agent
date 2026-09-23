@@ -1,5 +1,29 @@
 @echo off
-rem ===== æŒ‰éœ€å¯åŠ¨ MySQLï¼ˆä¸ä¼šå¼€æœºè‡ªå¯ï¼Œç”¨å®Œå¯è¿è¡Œ stop_mysql.bat é‡Šæ”¾å†…å­˜ï¼‰ =====
+rem ===== °´ĞèÆô¶¯ MySQL£¨²»»á¿ª»ú×ÔÆô£¬ÓÃÍê¿ÉÔËĞĞ stop_mysql.bat ÊÍ·ÅÄÚ´æ£© =====
+rem ÕËºÅÃÜÂëÍ³Ò»´Ó .env ¶ÁÈ¡£¬²»Ğ´ËÀÔÚ½Å±¾Àï£¨±ÜÃâËæ²Ö¿â¹«¿ªĞ¹Â¶£©
+setlocal
+
+if not exist "%~dp0.env" (
+    echo [´íÎó] Î´ÕÒµ½ .env ÎÄ¼ş£¬ÇëÏÈ¸´ÖÆ .env.example Îª .env ²¢ÌîĞ´Êı¾İ¿âÅäÖÃ¡£
+    pause
+    exit /b 1
+)
+
+for /f "usebackq tokens=1,* delims==" %%a in ("%~dp0.env") do (
+    if /i "%%a"=="DB_USER" set "DB_USER=%%b"
+    if /i "%%a"=="DB_PASSWORD" set "DB_PASSWORD=%%b"
+)
+
+if not defined DB_PASSWORD (
+    echo [´íÎó] Î´ÔÚ .env ÖĞÕÒµ½ DB_PASSWORD£¬Çë¼ì²éÅäÖÃÎÄ¼ş¡£
+    pause
+    exit /b 1
+)
+
 schtasks /run /tn MusicQueryMySQL
 timeout /t 5 /nobreak >nul
-E:\mysql-8.4.9-winx64\bin\mysql.exe -u root -p123456 -e "SELECT 'MySQL OK' AS status;"
+
+rem Í¨¹ı MYSQL_PWD ´«µİÃÜÂë£¬±ÜÃâÃÜÂë³öÏÖÔÚÃüÁîĞĞ²ÎÊıÖĞ
+set "MYSQL_PWD=%DB_PASSWORD%"
+E:\mysql-8.4.9-winx64\bin\mysql.exe -u %DB_USER% -e "SELECT 'MySQL OK' AS status;"
+set "MYSQL_PWD="
