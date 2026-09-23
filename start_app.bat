@@ -1,8 +1,26 @@
 @echo off
-rem ===== ä¸€é”®å¯åŠ¨ MusicQuery Agent =====
-rem å¯åŠ¨ MySQL ä¸Žç½‘é¡µåº”ç”¨ï¼ˆå‡ä¸ºè®¡åˆ’ä»»åŠ¡æ–¹å¼ï¼Œä¸å å¼€æœºè‡ªå¯ï¼‰ï¼Œå¹¶æ‰“å¼€æµè§ˆå™¨
-schtasks /run /tn MusicQueryMySQL
-schtasks /run /tn MusicQueryApp
+rem ===== Ò»¼üÆô¶¯ MusicQuery Agent£¨Windows ±¾»ú±ã½Ý½Å±¾£© =====
+rem ±¾½Å±¾ÒÀÀµ±¾»úÊÖ¶¯½¨ºÃµÄ¼Æ»®ÈÎÎñ MusicQueryMySQL / MusicQueryApp¡£
+rem »»Ò»Ì¨»úÆ÷£¨ÀýÈç½»¸øÍ¬°é£©Ê±ÇëÎðÊ¹ÓÃ±¾½Å±¾ ¡ª¡ª Çë°´ README¡¸¿ìËÙ¿ªÊ¼¡¹£º
+rem ÏÈÆô¶¯ MySQL£¬ÔÙÔÚÏîÄ¿Ä¿Â¼Ö´ÐÐ streamlit run app.py
+setlocal
+
+schtasks /query /tn MusicQueryMySQL >nul 2>&1
+if errorlevel 1 (
+    echo.
+    echo [ÌáÊ¾] Î´ÕÒµ½¼Æ»®ÈÎÎñ MusicQueryMySQL ¡ª¡ª ±¾½Å±¾ÊÇ±¾»ú×¨ÓÃµÄ¿ì½ÝÆô¶¯·½Ê½£¬
+    echo        ËüÒÀÀµÊÖ¶¯´´½¨µÄ¼Æ»®ÈÎÎñ£¬ÐÂ»·¾³Àï²»´æÔÚ¡£
+    echo.
+    echo        Çë¸ÄÓÃ README¡¸¿ìËÙ¿ªÊ¼¡¹£º
+    echo          1^) Æô¶¯ MySQL£¨»òÈ·ÈÏÒÑÔËÐÐ£©
+    echo          2^) ÔÚÏîÄ¿Ä¿Â¼Ö´ÐÐ£º streamlit run app.py
+    echo.
+    pause
+    exit /b 1
+)
+
+schtasks /run /tn MusicQueryMySQL >nul 2>&1
+schtasks /run /tn MusicQueryApp >nul 2>&1
 timeout /t 8 /nobreak >nul
 start http://localhost:8501
-echo å·²å¯åŠ¨ï¼šæ•°æ®åº“ + ç½‘é¡µåº”ç”¨ï¼Œæµè§ˆå™¨å³å°†æ‰“å¼€ http://localhost:8501
+echo ÒÑÆô¶¯£ºÊý¾Ý¿â + ÍøÒ³Ó¦ÓÃ£¬ä¯ÀÀÆ÷¼´½«´ò¿ª http://localhost:8501

@@ -75,7 +75,15 @@ musicquery-agent/
 
 ## 快速开始
 
-> 以下所有命令都在**项目目录**下执行，先进入目录：`cd E:\musicquery-agent`
+> 以下所有命令都在**项目目录**（即克隆/解压得到的 `musicquery-agent` 文件夹）下执行。
+> 例如放在 `D:\code\musicquery-agent`，就先 `cd /d D:\code\musicquery-agent`。
+> 下文出现的 `E:\musicquery-agent` 只是示例路径，请替换成你自己的项目目录。
+
+> **关于仓库里的 `.bat` 脚本**：`start_app.bat` / `start_mysql.bat` / `stop_mysql.bat`
+> / `stop_app.bat` 是**作者本机（Windows）的快捷方式**，依赖手动创建的计划任务
+> `MusicQueryMySQL` / `MusicQueryApp`。
+> **换一台机器（例如把项目交给同伴）请忽略这些 `.bat`**，直接按下面的第 5 步
+> `streamlit run app.py` 启动即可 —— 下面五步不依赖它们中的任何一个。
 
 ### 1. 安装依赖
 
@@ -94,7 +102,7 @@ mysql -u root -p < db/schema.sql
 PowerShell 不支持 `<` 重定向，请改用：
 
 ```powershell
-mysql -u root -p -e "source E:/musicquery-agent/db/schema.sql"
+mysql -u root -p -e "source db/schema.sql"
 ```
 
 会创建数据库 `music_query`、6 张表和要求的索引。
